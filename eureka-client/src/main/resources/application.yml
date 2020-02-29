@@ -1,0 +1,40 @@
+eureka:
+  instance:
+    preferIpAddress: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 5
+  client:
+    serviceUrl:
+      defaultZone: http://user:234@localhost:8761/eureka/
+    healthcheck:
+      enabled: true
+
+ribbon:
+  eureka:
+    enabled: true
+  eager-load:
+    enabled: true
+    clients: eureka-client
+
+spring:
+  application:
+    name: eureka-client
+  security:
+    basic:
+      enabled: true
+    user:
+      name: user
+      password: 234
+server:
+  port: 8081
+eureka-client:
+  ribbon:
+    NFLoadBalancerRuleClassName: stoner.tspringcloud.eureka.client.ribbon.MyRule
+    ConnectTimeout: 1000
+    ReadTimeout: 1000
+    maxAutoRetries: 1
+    maxAutoRetriesNextServer: 3
+    okToRetryOnAllOperations: true
+    retryableStatusCodes: 500,404,502
+    listOfServers: localhost:8081,localhost:8082
