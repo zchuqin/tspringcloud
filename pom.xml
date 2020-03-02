@@ -13,6 +13,9 @@
         <module>eureka-server</module>
         <module>eureka-client</module>
         <module>feign</module>
+        <module>histrix</module>
+        <module>hystrixDashboard</module>
+        <module>gateway</module>
     </modules>
 
     <parent>

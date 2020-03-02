@@ -3,3 +3,5 @@
 /eureka-client/target/
 /eureka-server/target/
 /feign/target/
+.idea
+**.iml

@@ -1,0 +1,23 @@
+eureka:
+  instance:
+    preferIpAddress: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 5
+  client:
+    serviceUrl:
+      defaultZone: http://user:234@localhost:8761/eureka/
+    healthcheck:
+      enabled: true
+
+turbine:
+  appConfig: hystrix
+  clusterNameExpression: new String("default")
+  aggregator:
+    clusterConfig: default
+
+spring:
+  application:
+    name: hystrixDashboard
+server:
+  port: 9011

@@ -1,0 +1,56 @@
+server:
+  port: 2001
+spring:
+  redis:
+    host: 111.229.208.117
+    port: 6379
+    password: idn3L
+  application:
+    name: spring-cloud-gateway
+  cloud:
+    gateway:
+      default-filters:
+        - AddResponseHeader=X-Response-Default-Foo, Default-Bar
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            exposedHeaders:
+            - content-type
+            allowedHeaders:
+            - content-type
+            allowCredentials: true
+            allowedMethods:
+            - GET
+            - OPTIONS
+            - PUT
+            - DELETE
+            - POST
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      routes:
+        - id: test
+          uri: lb://EUREKA-CLIENT
+          predicates:
+            - Path=/**
+
+
+            
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://user:234@localhost:8761/eureka/
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.http.server.reactive: DEBUG
+    org.springframework.web.reactive: DEBUG
+    reactor.ipc.netty: DEBUG
+    reactor.netty: DEBUG
+
+management.endpoints.web.exposure.include: '*'
